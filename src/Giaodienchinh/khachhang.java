@@ -42,7 +42,7 @@ public class khachhang extends javax.swing.JPanel {
         jButton6 = new javax.swing.JButton();
         jPanel17 = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
-        jTextField25 = new javax.swing.JTextField();
+        txttenkhachhang = new javax.swing.JTextField();
         jLabel38 = new javax.swing.JLabel();
         jComboBox5 = new javax.swing.JComboBox();
         jLabel45 = new javax.swing.JLabel();
@@ -219,7 +219,7 @@ public class khachhang extends javax.swing.JPanel {
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addComponent(jComboBox5, 0, 95, Short.MAX_VALUE)
                         .addGap(133, 133, 133))
-                    .addComponent(jTextField25)
+                    .addComponent(txttenkhachhang)
                     .addComponent(jTextField27)
                     .addComponent(jTextField32))
                 .addGap(18, 18, 18)
@@ -257,7 +257,7 @@ public class khachhang extends javax.swing.JPanel {
                             .addGroup(jPanel17Layout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextField25, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txttenkhachhang, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel48, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -434,12 +434,12 @@ public class khachhang extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField25;
     private javax.swing.JTextField jTextField27;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField32;
     private javax.swing.JTextField jTextField33;
     private javax.swing.JTextField jTextField34;
     private javax.swing.JPanel normalTool;
+    private javax.swing.JTextField txttenkhachhang;
     // End of variables declaration//GEN-END:variables
 }
