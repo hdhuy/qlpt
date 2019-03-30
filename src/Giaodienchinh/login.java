@@ -17,7 +17,7 @@ import java.util.Properties;
 public class login extends javax.swing.JFrame {
 
     /**
-     * Creates new form Login
+     * Chuyển qua develop
      */
     public login() {
         initComponents();
