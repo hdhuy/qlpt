@@ -20,7 +20,7 @@ public class database {
     //Connection con=null;
     public Connection getKetnoi() {
         Connection newcon = null;
-        laydulieuconfig();
+        laydulieuhardcode();
         try {
             String url = "jdbc:sqlserver://"+host+":1433;databaseName=quanliphongtro";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -34,8 +34,8 @@ public class database {
 
     public void laydulieuhardcode() {
         this.host = "localHost";
-        this.ten = "admin";
-        this.mk = "admin";
+        this.ten = "sa";
+        this.mk = "huettph06862";
         //this.databasename = "quanliquanan";
     }
 
