@@ -20,13 +20,15 @@ public class database {
     //Connection con=null;
     public Connection getKetnoi() {
         Connection newcon = null;
-        laydulieuconfig();
+//        laydulieuconfig();
         try {
+            laydulieuhardcode();
             String url = "jdbc:sqlserver://"+host+":1433;databaseName=quanliphongtro";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             newcon = DriverManager.getConnection(url, ten, mk);
             System.out.println("ket noi thanh cong, database.database.getKetnoi()"+newcon.getMetaData());
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("ket noi that bai, database.database.getKetnoi()");
         }
         return newcon;
@@ -34,8 +36,8 @@ public class database {
 
     public void laydulieuhardcode() {
         this.host = "localHost";
-        this.ten = "admin";
-        this.mk = "admin";
+        this.ten = "sa";
+        this.mk = "manh12";
         //this.databasename = "quanliquanan";
     }
 
@@ -84,7 +86,7 @@ public class database {
             if(tenbang.equalsIgnoreCase("hoadon")){
                 while(rs.next()){
                     data.add(new Hoadon(rs.getInt(1), rs.getInt(2), rs.getInt(3),
-                            rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7)));
+                            rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7),rs.getDate(8)));
                 }
             }
             if(tenbang.equalsIgnoreCase("nguoidung")){
