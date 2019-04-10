@@ -23,7 +23,9 @@ import javax.swing.table.DefaultTableModel;
 public class hoadon extends javax.swing.JPanel {
 
     Connection con = new database.database().getKetnoi();
-    String headDetail[] = {"Mã Hóa Đơn", "Tên Phòng", "Tên Người Thuê", "Tiền Nhà", "Tiền Điện", "Tiền Nước", "Tổng Tiền", "Ngày Thanh Toán"};
+    String headDetail[] = {"Mã Hóa Đơn", "Mã Phòng", "Mã Người Thuê",
+        "Tên Người Thuê", "Tên Phòng", "Tiền Nhà", "Số điện sử dùng", "Giá điện",
+        "Số nước sử dụng", "Giá nước", "Tổng Tiền", "Ngày Thanh Toán"};
     DefaultTableModel modelInvoice = new DefaultTableModel(headDetail, 0);
 
     public hoadon() {
@@ -33,7 +35,7 @@ public class hoadon extends javax.swing.JPanel {
     }
 
     private void loadDataToTableDetail() {
-        String sql = "SELECT * FROM hoadon";
+        String sql = "SELECT * FROM HOADON";
         modelInvoice.setRowCount(0);
         try {
 
@@ -44,11 +46,15 @@ public class hoadon extends javax.swing.JPanel {
                 data.add(rs.getInt(1));
                 data.add(rs.getInt(2));
                 data.add(rs.getInt(3));
-                data.add(rs.getInt(4));
-                data.add(rs.getInt(5));
+                data.add(rs.getString(4));
+                data.add(rs.getString(5));
                 data.add(rs.getInt(6));
                 data.add(rs.getInt(7));
-                data.add(rs.getDate(8));
+                data.add(rs.getInt(8));
+                data.add(rs.getInt(9));
+                data.add(rs.getInt(10));
+                data.add(rs.getInt(11));
+                data.add(rs.getDate(12));
 
                 modelInvoice.addRow(data);
             }
@@ -121,7 +127,6 @@ public class hoadon extends javax.swing.JPanel {
 //
 //        return 0;
 //    }
-
     private void searchInformation() {
         txtSearch.addKeyListener(new KeyAdapter() {
             @Override
@@ -132,24 +137,22 @@ public class hoadon extends javax.swing.JPanel {
 
                     String selection = (String) cboSelection.getSelectedItem();
                     if (selection.equals("Mã hóa đơn")) {
-                        sql = "SELECT * FROM hoadon WHERE mahoadon   = " + txtSearch.getText();
+                        sql = "SELECT * FROM HOADON WHERE mahoadon = " + txtSearch.getText();
 
-                    } else if (selection.equals("Mã người thuê")) {
-                        sql = "SELECT * FROM hoadon WHERE [manguoithue] = " + txtSearch.getText();
+                    } else if (selection.equals("Tên người thuê")) {
+                        sql = "SELECT * FROM HOADON WHERE [TenNguoiThue] LIKE '%" + txtSearch.getText() + "%'";
 
-                    } else if (selection.equals("Mã phòng")) {
-//                        int id = findIdRoomByName(txtSearch.getText());
-                        sql = "SELECT * FROM hoadon WHERE [maphong] = " + txtSearch.getText();
+                    } else if (selection.equals("Tên phòng")) {
+                        sql = "SELECT * FROM HOADON WHERE [TenPhong] LIKE '%" + txtSearch.getText() + "%'";
 
                     } else if (selection.equals("Ngày")) {
-                        sql = "SELECT * FROM hoadon where DAY([ngay]) = " + txtSearch.getText();
+                        sql = "SELECT * FROM HOADON where DAY([ngay]) = " + txtSearch.getText();
 
                     } else if (selection.equals("Tháng")) {
-                        sql = "SELECT * FROM hoadon where MONTH([ngay]) = " + txtSearch.getText();
+                        sql = "SELECT * FROM HOADON where MONTH([ngay]) = " + txtSearch.getText();
 
                     } else if (selection.equals("Năm")) {
-                        sql = "SELECT * FROM hoadon where YEAR([ngay]) = " + txtSearch.getText();
-
+                        sql = "SELECT * FROM HOADON where YEAR([ngay]) = " + txtSearch.getText();
                     }
 
                     PreparedStatement prst = con.prepareStatement(sql);
@@ -160,11 +163,15 @@ public class hoadon extends javax.swing.JPanel {
                         data.add(rs.getInt(1));
                         data.add(rs.getInt(2));
                         data.add(rs.getInt(3));
-                        data.add(rs.getInt(4));
-                        data.add(rs.getInt(5));
+                        data.add(rs.getString(4));
+                        data.add(rs.getString(5));
                         data.add(rs.getInt(6));
                         data.add(rs.getInt(7));
-                        data.add(rs.getDate(8));
+                        data.add(rs.getInt(8));
+                        data.add(rs.getInt(9));
+                        data.add(rs.getInt(10));
+                        data.add(rs.getInt(11));
+                        data.add(rs.getDate(12));
 
                         modelInvoice.addRow(data);
                     }
@@ -172,7 +179,7 @@ public class hoadon extends javax.swing.JPanel {
                     tblInvoice.setModel(modelInvoice);
 
                 } catch (SQLException ex) {
-//                    ex.printStackTrace();
+                    ex.printStackTrace();
                 }
                 if (txtSearch.getText().trim().length() == 0) {
                     loadDataToTableDetail();
@@ -212,7 +219,12 @@ public class hoadon extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setText("Nhập thông tin");
 
-        cboSelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mã hóa đơn", "Mã người thuê", "Mã phòng", "Ngày", "Tháng", "Năm" }));
+        cboSelection.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mã hóa đơn", "Tên phòng", "Tên người thuê", "Ngày", "Tháng", "Năm" }));
+        cboSelection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboSelectionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -254,19 +266,19 @@ public class hoadon extends javax.swing.JPanel {
 
         tblInvoice.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã hóa đơn", "Tên phòng", "Tên người thuê", "Tiền nhà", "Tiền điện", "Tiền nước", "Tổng tiền", "Ngày thanh toán"
+                "Mã hóa đơn", "Mã phòng", "Mã người thuê", "Tên người thuê", "Tên phòng", "Tiền nhà", "Số điện sử dụng", "Giá điện", "Số nước sử dụng", "Giá nước", "Tổng tiền", "Ngày"
             }
         ));
         jScrollPane1.setViewportView(tblInvoice);
@@ -290,7 +302,7 @@ public class hoadon extends javax.swing.JPanel {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 217, Short.MAX_VALUE))
                     .addComponent(jScrollPane1)))
         );
         jPanel9Layout.setVerticalGroup(
@@ -320,9 +332,13 @@ public class hoadon extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cboSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboSelectionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboSelectionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
