@@ -9,14 +9,14 @@ package Doituong;
  *
  * @author Huy
  */
-public class Nguoidung {
+public class Dangnhap {
     String tendangnhap;
     String matkhau;
 
-    public Nguoidung() {
+    public Dangnhap() {
     }
 
-    public Nguoidung(String tendangnhap, String matkhau) {
+    public Dangnhap(String tendangnhap, String matkhau) {
         this.tendangnhap = tendangnhap;
         this.matkhau = matkhau;
     }

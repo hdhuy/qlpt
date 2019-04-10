@@ -1,33 +1,41 @@
 
 package Doituong;
 
+import java.sql.Date;
+
 
 public class Phong {
     int maphong;
     String tenphong;
     int matoanha;
     int manguoithue;
-    int gia;
+    int dientich;
+    int giaphong;
     int soluongnguoi;
+    int sodiencu;
+    int sodienmoi;
+    int sonuocmoi;
+    int sonuoccu;
+    Date thoigianthanhtoan;
     int soluongxe;
-    int dien;
-    int nuoc;
-    String thanhtoan;
-
+    
     public Phong() {
     }
 
-    public Phong(int maphong, String tenphong, int matoanha, int manguoithue, int gia, int soluongnguoi, int soluongxe, int dien, int nuoc, String thanhtoan) {
+    public Phong(int maphong, String tenphong, int matoanha, int manguoithue, int dientich, int giaphong, int soluongnguoi, int sodiencu, int sodienmoi, int sonuocmoi, int sonuoccu, Date thoigianthanhtoan, int soluongxe) {
         this.maphong = maphong;
         this.tenphong = tenphong;
         this.matoanha = matoanha;
         this.manguoithue = manguoithue;
-        this.gia = gia;
+        this.dientich = dientich;
+        this.giaphong = giaphong;
         this.soluongnguoi = soluongnguoi;
+        this.sodiencu = sodiencu;
+        this.sodienmoi = sodienmoi;
+        this.sonuocmoi = sonuocmoi;
+        this.sonuoccu = sonuoccu;
+        this.thoigianthanhtoan = thoigianthanhtoan;
         this.soluongxe = soluongxe;
-        this.dien = dien;
-        this.nuoc = nuoc;
-        this.thanhtoan = thanhtoan;
     }
 
     public int getMaphong() {
@@ -62,12 +70,20 @@ public class Phong {
         this.manguoithue = manguoithue;
     }
 
-    public int getGia() {
-        return gia;
+    public int getDientich() {
+        return dientich;
     }
 
-    public void setGia(int gia) {
-        this.gia = gia;
+    public void setDientich(int dientich) {
+        this.dientich = dientich;
+    }
+
+    public int getGiaphong() {
+        return giaphong;
+    }
+
+    public void setGiaphong(int giaphong) {
+        this.giaphong = giaphong;
     }
 
     public int getSoluongnguoi() {
@@ -78,36 +94,52 @@ public class Phong {
         this.soluongnguoi = soluongnguoi;
     }
 
+    public int getSodiencu() {
+        return sodiencu;
+    }
+
+    public void setSodiencu(int sodiencu) {
+        this.sodiencu = sodiencu;
+    }
+
+    public int getSodienmoi() {
+        return sodienmoi;
+    }
+
+    public void setSodienmoi(int sodienmoi) {
+        this.sodienmoi = sodienmoi;
+    }
+
+    public int getSonuocmoi() {
+        return sonuocmoi;
+    }
+
+    public void setSonuocmoi(int sonuocmoi) {
+        this.sonuocmoi = sonuocmoi;
+    }
+
+    public int getSonuoccu() {
+        return sonuoccu;
+    }
+
+    public void setSonuoccu(int sonuoccu) {
+        this.sonuoccu = sonuoccu;
+    }
+
+    public Date getThoigianthanhtoan() {
+        return thoigianthanhtoan;
+    }
+
+    public void setThoigianthanhtoan(Date thoigianthanhtoan) {
+        this.thoigianthanhtoan = thoigianthanhtoan;
+    }
+
     public int getSoluongxe() {
         return soluongxe;
     }
 
     public void setSoluongxe(int soluongxe) {
         this.soluongxe = soluongxe;
-    }
-
-    public int getDien() {
-        return dien;
-    }
-
-    public void setDien(int dien) {
-        this.dien = dien;
-    }
-
-    public int getNuoc() {
-        return nuoc;
-    }
-
-    public void setNuoc(int nuoc) {
-        this.nuoc = nuoc;
-    }
-
-    public String getThanhtoan() {
-        return thanhtoan;
-    }
-
-    public void setThanhtoan(String thanhtoan) {
-        this.thanhtoan = thanhtoan;
     }
     
 }

@@ -5,21 +5,29 @@ public class Hoadon {
     int mahoadon;
     int maphong;
     int manguoithue;
-    int nha;
-    int dien;
-    int nuoc;
+    String tennguoithue;
+    String tenphong;
+    int tiennha;
+    int sodiensudung;
+    int giadin;
+    int sonuocsudung;
+    int gianuoc;
     int tongtien;
 
     public Hoadon() {
     }
 
-    public Hoadon(int mahoadon, int maphong, int manguoithue, int nha, int dien, int nuoc, int tongtien) {
+    public Hoadon(int mahoadon, int maphong, int manguoithue, String tennguoithue, String tenphong, int tiennha, int sodiensudung, int giadin, int sonuocsudung, int gianuoc, int tongtien) {
         this.mahoadon = mahoadon;
         this.maphong = maphong;
         this.manguoithue = manguoithue;
-        this.nha = nha;
-        this.dien = dien;
-        this.nuoc = nuoc;
+        this.tennguoithue = tennguoithue;
+        this.tenphong = tenphong;
+        this.tiennha = tiennha;
+        this.sodiensudung = sodiensudung;
+        this.giadin = giadin;
+        this.sonuocsudung = sonuocsudung;
+        this.gianuoc = gianuoc;
         this.tongtien = tongtien;
     }
 
@@ -47,28 +55,60 @@ public class Hoadon {
         this.manguoithue = manguoithue;
     }
 
-    public int getNha() {
-        return nha;
+    public String getTennguoithue() {
+        return tennguoithue;
     }
 
-    public void setNha(int nha) {
-        this.nha = nha;
+    public void setTennguoithue(String tennguoithue) {
+        this.tennguoithue = tennguoithue;
     }
 
-    public int getDien() {
-        return dien;
+    public String getTenphong() {
+        return tenphong;
     }
 
-    public void setDien(int dien) {
-        this.dien = dien;
+    public void setTenphong(String tenphong) {
+        this.tenphong = tenphong;
     }
 
-    public int getNuoc() {
-        return nuoc;
+    public int getTiennha() {
+        return tiennha;
     }
 
-    public void setNuoc(int nuoc) {
-        this.nuoc = nuoc;
+    public void setTiennha(int tiennha) {
+        this.tiennha = tiennha;
+    }
+
+    public int getSodiensudung() {
+        return sodiensudung;
+    }
+
+    public void setSodiensudung(int sodiensudung) {
+        this.sodiensudung = sodiensudung;
+    }
+
+    public int getGiadin() {
+        return giadin;
+    }
+
+    public void setGiadin(int giadin) {
+        this.giadin = giadin;
+    }
+
+    public int getSonuocsudung() {
+        return sonuocsudung;
+    }
+
+    public void setSonuocsudung(int sonuocsudung) {
+        this.sonuocsudung = sonuocsudung;
+    }
+
+    public int getGianuoc() {
+        return gianuoc;
+    }
+
+    public void setGianuoc(int gianuoc) {
+        this.gianuoc = gianuoc;
     }
 
     public int getTongtien() {

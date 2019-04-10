@@ -1,4 +1,3 @@
-
 package database;
 
 import java.io.FileInputStream;
@@ -12,20 +11,21 @@ import java.util.Properties;
 import Doituong.*;
 
 public class database {
-    String ten="";
-    String mk="";
-    String host="";
+
+    String ten = "";
+    String mk = "";
+    String host = "";
     //String databasename;
 
     //Connection con=null;
     public Connection getKetnoi() {
         Connection newcon = null;
-        laydulieuconfig();
+        laydulieuhardcode();
         try {
-            String url = "jdbc:sqlserver://"+host+":1433;databaseName=quanliphongtro";
+            String url = "jdbc:sqlserver://" + host + ":1433;databaseName=quanliphongtro";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             newcon = DriverManager.getConnection(url, ten, mk);
-            System.out.println("ket noi thanh cong, database.database.getKetnoi()"+newcon.getMetaData());
+            System.out.println("ket noi thanh cong, database.database.getKetnoi()" + newcon.getMetaData());
         } catch (Exception e) {
             System.out.println("ket noi that bai, database.database.getKetnoi()");
         }
@@ -54,54 +54,65 @@ public class database {
             System.out.println("không lấy được dữ liệu đăng nhập từ file text(database)");
         }
     }
-    public ArrayList SelectAll(String tenbang){
+
+    public ArrayList SelectAll(String tenbang) {
         ArrayList data = new ArrayList<>();
         try {
             Connection con = new database().getKetnoi();
             Statement stm = con.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT * FROM "+tenbang+";");
-            if(tenbang.equalsIgnoreCase("toanha")){
-                while(rs.next()){
-                    data.add(new Toanha(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getShort(4)));
+            ResultSet rs = stm.executeQuery("SELECT * FROM " + tenbang + ";");
+            if (tenbang.equalsIgnoreCase("toanha")) {
+                while (rs.next()) {
+                    data.add(new Toanha(rs.getInt(1), rs.getString(2), rs.getString(3)));
                 }
             }
-            if(tenbang.equalsIgnoreCase("phong")){
-                while(rs.next()){
+            if (tenbang.equalsIgnoreCase("phong")) {
+                while (rs.next()) {
                     data.add(new Phong(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4),
-                            rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getString(10)));
+                            rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getInt(10),
+                            rs.getInt(11), rs.getDate(12), rs.getInt(13)));
                 }
             }
-            if(tenbang.equalsIgnoreCase("dichvu")){
-                while(rs.next()){
-                    data.add(new Dichvu(0, 0));
+            if (tenbang.equalsIgnoreCase("dichvu")) {
+                while (rs.next()) {
+                    data.add(new Dichvu(rs.getInt(1), rs.getInt(2),rs.getInt(3)));
                 }
             }
-            if(tenbang.equalsIgnoreCase("doanhthu")){
-                while(rs.next()){
-                    data.add(new Doanhthu(rs.getDate(1).toString(), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5)));
+            if (tenbang.equalsIgnoreCase("doanhthu")) {
+                while (rs.next()) {
+                    data.add(new Doanhthu(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5),
+                            rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9), rs.getInt(10), rs.getInt(11),
+                            rs.getInt(12), rs.getInt(13)));
                 }
             }
-            if(tenbang.equalsIgnoreCase("hoadon")){
-                while(rs.next()){
-                    data.add(new Hoadon(rs.getInt(1), rs.getInt(2), rs.getInt(3),
-                            rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7)));
+            if (tenbang.equalsIgnoreCase("hoadon")) {
+                while (rs.next()) {
+                    data.add(new Hoadon(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4),
+                            rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getInt(9),
+                            rs.getInt(10), rs.getInt(11)));
                 }
             }
-            if(tenbang.equalsIgnoreCase("nguoidung")){
-                while(rs.next()){
-                    data.add(new Nguoidung(rs.getString(1), rs.getString(2)));
+            if (tenbang.equalsIgnoreCase("dangnhap")) {
+                while (rs.next()) {
+                    data.add(new Dangnhap(rs.getString(1), rs.getString(2)));
                 }
             }
-            if(tenbang.equalsIgnoreCase("nguoithue")){
-                while(rs.next()){
-                    data.add(new Nguoithue(rs.getInt(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4),rs.getInt(5), rs.getString(6), rs.getString(7),
-                            rs.getString(8), rs.getString(9), rs.getInt(10)));
+            if (tenbang.equalsIgnoreCase("nguoithue")) {
+                while (rs.next()) {
+                    data.add(new Nguoithue(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                            rs.getString(5), rs.getInt(6), rs.getString(7), rs.getString(8),
+                            rs.getString(9), rs.getFloat(10), rs.getString(11)));
                 }
             }
         } catch (Exception e) {
-            System.out.println("select sai"+e);
+            System.out.println("select sai" + e);
         }
         return data;
     }
+
+    public void Insert() {
+        
+        
+    }
+
 }
