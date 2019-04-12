@@ -165,7 +165,7 @@ public class thanhtoan extends javax.swing.JPanel {
         LocalDate l = d.toLocalDate();
         txtLichthanhtoan.setText(l.toString());
 
-        tongtien = tiendien + tiennuoc + tienphong + tienxe;
+        tongtien = tiendien + tiennuoc + tienphong + tienxe*p.getSoluongxe();
 
         int nam = LocalDate.now().getYear();
         int thang = LocalDate.now().getMonthValue();
@@ -260,6 +260,11 @@ public class thanhtoan extends javax.swing.JPanel {
         int tong = tiennha + (sodiensudung * giadien) + (sonuocsudung + gianuoc) + tienxe;
         String thoigian = LocalDate.now().toString();
         //
+        String nam=LocalDate.now().getYear()+"";
+        String thang=LocalDate.now().getMonthValue()+"";
+        //
+        String update="update DOANHTHU set thang"+thang+" += "+tong+" where Nam="+nam+";";
+//        JOptionPane.showMessageDialog(btnTIMKIEM, update);
         String sql = "INSERT INTO dbo.HOADON (MaPhong, MaNguoiThue, TenNguoiThue, TenPhong, TienNha, SoDienSuDung, GiaDien, SoNuocSuDung, GiaNuoc, SoLuongXe, TienXe, TongTien, ThoiGian) "
                 + "VALUES (" + maphong + "," + manguoithue + ", N'" + tennguoithue + "', '" + tenphong + "',"
                 + " " + tiennha + "," + sodiensudung + "," + giadien + "," + sonuocsudung + "," + gianuoc + "," + soluongxe + ","
@@ -267,7 +272,21 @@ public class thanhtoan extends javax.swing.JPanel {
         try {
             Statement stm = con.createStatement();
             stm.executeQuery(sql);
+            stm.executeUpdate(update);
         } catch (Exception e) {
+        }
+    }
+    void themDoanhthu(){
+        String tong=txtTongtt.getText();
+        String nam=LocalDate.now().getYear()+"";
+        String thang=LocalDate.now().getMonthValue()+"";
+        //
+        String update="update DOANHTHU set thang"+thang+" += "+tong+" where Nam="+nam+";";
+        try {
+            Statement stm = con.createStatement();
+            stm.executeUpdate(update);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(btnTIMKIEM, "lỗi up"+e);
         }
     }
 
@@ -576,6 +595,7 @@ public class thanhtoan extends javax.swing.JPanel {
             thanhtoan(p);
             Nguoithue n=chonNguoiThue(p);
             luuHoaDon(p, n);
+//            themDoanhthu();
             reload();
         } catch (Exception e) {
         }
