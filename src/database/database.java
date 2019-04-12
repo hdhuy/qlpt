@@ -20,7 +20,7 @@ public class database {
     //Connection con=null;
     public Connection getKetnoi() {
         Connection newcon = null;
-        laydulieuhardcode();
+        laydulieuconfig();
         try {
             String url = "jdbc:sqlserver://" + host + ":1433;databaseName=quanliphongtro";
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -51,7 +51,7 @@ public class database {
             //this.databasename = prop.getProperty("remote.databasename");
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("không lấy được dữ liệu đăng nhập từ file text(database)");
+            System.out.println("không lấy được dữ liệu đăng nhập từ file text(database)"+e);
         }
     }
 

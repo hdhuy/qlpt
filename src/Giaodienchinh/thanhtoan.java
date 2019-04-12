@@ -125,7 +125,7 @@ public class thanhtoan extends javax.swing.JPanel {
                 }
             }
             if (p2.size() == 0) {
-                JOptionPane.showMessageDialog(this, "Không có phòng này !");
+                JOptionPane.showMessageDialog(this, "Không có kết quả nào !");
             }
         } catch (Exception e) {
         }
@@ -245,7 +245,7 @@ public class thanhtoan extends javax.swing.JPanel {
         }
     }
 
-    void luuHoaDon(Phong p, Nguoithue n) {
+    String luuHoaDon(Phong p, Nguoithue n) {
         String maphong = p.getMaphong() + "";
         String manguoithue = n.getManguoithue() + "";
         String tennguoithue = n.getTennguoithue() + "";
@@ -263,7 +263,7 @@ public class thanhtoan extends javax.swing.JPanel {
         String nam=LocalDate.now().getYear()+"";
         String thang=LocalDate.now().getMonthValue()+"";
         //
-        String update="update DOANHTHU set thang"+thang+" += "+tong+" where Nam="+nam+";";
+//        String update="update DOANHTHU set thang"+thang+" += "+tong+" where Nam="+nam;
 //        JOptionPane.showMessageDialog(btnTIMKIEM, update);
         String sql = "INSERT INTO dbo.HOADON (MaPhong, MaNguoiThue, TenNguoiThue, TenPhong, TienNha, SoDienSuDung, GiaDien, SoNuocSuDung, GiaNuoc, SoLuongXe, TienXe, TongTien, ThoiGian) "
                 + "VALUES (" + maphong + "," + manguoithue + ", N'" + tennguoithue + "', '" + tenphong + "',"
@@ -271,13 +271,15 @@ public class thanhtoan extends javax.swing.JPanel {
                 + "" + tienxe + "," + tong + ", '" + thoigian + "');";
         try {
             Statement stm = con.createStatement();
+            //Statement stm2 = con.createStatement();
             stm.executeQuery(sql);
-            stm.executeUpdate(update);
+            //stm2.executeUpdate(update);
         } catch (Exception e) {
         }
+        return tong+"";
     }
-    void themDoanhthu(){
-        String tong=txtTongtt.getText();
+    void themDoanhthu(String tong){
+       // String tong="1000";
         String nam=LocalDate.now().getYear()+"";
         String thang=LocalDate.now().getMonthValue()+"";
         //
@@ -594,8 +596,8 @@ public class thanhtoan extends javax.swing.JPanel {
             }
             thanhtoan(p);
             Nguoithue n=chonNguoiThue(p);
-            luuHoaDon(p, n);
-//            themDoanhthu();
+            String tong=luuHoaDon(p, n);
+            themDoanhthu(tong);
             reload();
         } catch (Exception e) {
         }

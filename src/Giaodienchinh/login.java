@@ -7,44 +7,64 @@ package Giaodienchinh;
 
 import javax.swing.JOptionPane;
 import database.*;
+import Doituong.Dangnhap;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class login extends javax.swing.JFrame {
 
-    /**
-     * Chuyển qua develop
-     */
+    ArrayList<Dangnhap> dn = new ArrayList();
+    database data = new database();
+
     public login() {
         initComponents();
         this.setResizable(false);
-        //setpanel();
-        config.setVisible(false);
-        //doimatkhau.setVisible(false);
-        dangnhap.setVisible(true);
+                setpanel();
     }
 
     /*CODE ĐĂNG NHẬP
      */
     void dangnhap() {
-        main main = new main();
-        main.setVisible(true);
-        this.setVisible(false);
+        String ten = txtTdn.getText();
+        String mk = txtMkdn.getText();
+        boolean ok=false;
+        try {
+            for (Dangnhap check : dn) {
+                if (check.getTen().equals(ten) && check.getMk().equals(mk)) {
+                    main main = new main();
+                    main.setVisible(true);
+                    main.getDN(check);
+                    this.setVisible(false);
+                    ok=true;
+                    break;
+                }
+            }
+            if(ok==false){
+                JOptionPane.showMessageDialog(rootPane,"Tên đăng nhập hoặc mật khẩu sai");
+            }
+        } catch (Exception e) {
+        }
     }
 
     void setpanel() {
-        if (checkconfig() == false) {
+        try {
+            if (checkconfig() == false) {
             dangnhap.setVisible(false);
             config.setVisible(true);
             tit.setText("Config lần đầu");
         } else {
             config.setVisible(false);
             dangnhap.setVisible(true);
+            dn=data.SelectAll("dangnhap");
         }
+        } catch (Exception e) {
+        }
+        
     }
 
     void saveConfig() {
@@ -96,11 +116,11 @@ public class login extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         dangnhap = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtTdn = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         btnDangnhap = new javax.swing.JButton();
+        txtMkdn = new javax.swing.JPasswordField();
         config = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         configUser = new javax.swing.JTextField();
@@ -151,18 +171,18 @@ public class login extends javax.swing.JFrame {
                 .addGap(64, 64, 64)
                 .addGroup(dangnhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(dangnhapLayout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(dangnhapLayout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(dangnhapLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(btnDangnhap, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(22, 22, 22)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(dangnhapLayout.createSequentialGroup()
+                        .addGroup(dangnhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26)
+                        .addGroup(dangnhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtTdn, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                            .addComponent(txtMkdn))))
                 .addContainerGap(86, Short.MAX_VALUE))
         );
         dangnhapLayout.setVerticalGroup(
@@ -171,16 +191,16 @@ public class login extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(dangnhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(dangnhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(txtTdn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(dangnhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                    .addComponent(txtMkdn))
+                .addGap(34, 34, 34)
                 .addGroup(dangnhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
                     .addComponent(btnDangnhap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         jPanel2.add(dangnhap, "card2");
@@ -313,10 +333,10 @@ public class login extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-           // doimatkhau.setVisible(true);
+            // doimatkhau.setVisible(true);
             dangnhap.setVisible(false);
-            config.setVisible(false);
-            tit.setText("ĐỔI MẬT KHẨU");
+            config.setVisible(true);
+            tit.setText("CONFIG");
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -327,6 +347,7 @@ public class login extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         saveConfig();
+        dn = data.SelectAll("dangnhap");
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void btnDangnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangnhapActionPerformed
@@ -416,9 +437,9 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel tit;
     private javax.swing.JPanel top;
+    private javax.swing.JPasswordField txtMkdn;
+    private javax.swing.JTextField txtTdn;
     // End of variables declaration//GEN-END:variables
 }
