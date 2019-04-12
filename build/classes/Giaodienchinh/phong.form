@@ -55,9 +55,8 @@
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="27" max="32767" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" pref="54" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -144,12 +143,11 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jPanel8" max="32767" attributes="0"/>
-                          <Component id="TOOL" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="TOOL" min="-2" max="-2" attributes="0"/>
+                          <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -243,6 +241,9 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="X&#xd3;A"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXOAActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnTHANHLY">
                       <Properties>
@@ -254,6 +255,9 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="THANH L&#xdd;"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTHANHLYActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -271,7 +275,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="btnCAPNHAT" max="32767" attributes="0"/>
-                                  <Component id="btnDATLAI" pref="135" max="32767" attributes="0"/>
+                                  <Component id="btnDATLAI" pref="143" max="32767" attributes="0"/>
                                   <Component id="btnHUY" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -301,8 +305,11 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/image/reload.png"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="S&#x1eec;A"/>
+                        <Property name="text" type="java.lang.String" value="S&#x1eec;A XONG"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCAPNHATActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnDATLAI">
                       <Properties>
@@ -314,6 +321,9 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="&#x110;&#x1eb6;T L&#x1ea0;I"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDATLAIActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnHUY">
                       <Properties>
@@ -375,8 +385,11 @@
                         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                           <Image iconType="3" name="/image/new1.png"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="TH&#xca;M"/>
+                        <Property name="text" type="java.lang.String" value="TH&#xca;M XONG"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTHEM2ActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnDATLAI1">
                       <Properties>
@@ -388,6 +401,9 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="&#x110;&#x1eb6;T L&#x1ea0;I"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDATLAI1ActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btnHUY1">
                       <Properties>
@@ -434,9 +450,9 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="ThongTinMaPhong" min="-2" pref="123" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -474,11 +490,11 @@
                                   <Component id="jLabel22" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtDientich" min="-2" pref="280" max="-2" attributes="0"/>
-                                  <Component id="txtGia" min="-2" pref="192" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txtGia" pref="192" max="32767" attributes="0"/>
+                                  <Component id="txtDientich" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -488,8 +504,10 @@
                               <EmptySpace min="-2" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="txtTenphong" pref="46" max="32767" attributes="0"/>
-                                  <Component id="jLabel17" min="-2" pref="41" max="-2" attributes="0"/>
-                                  <Component id="txtDientich" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel17" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                                      <Component id="txtDientich" alignment="3" min="-2" pref="43" max="-2" attributes="0"/>
+                                  </Group>
                                   <Component id="jLabel18" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -531,8 +549,6 @@
                         <Property name="text" type="java.lang.String" value="Gi&#xe1;:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="txtDientich">
-                    </Component>
                     <Component class="javax.swing.JSpinner" name="txtGia">
                     </Component>
                     <Component class="javax.swing.JSpinner" name="txtSoluongxe">
@@ -546,6 +562,8 @@
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtTenphong">
+                    </Component>
+                    <Component class="javax.swing.JSpinner" name="txtDientich">
                     </Component>
                   </SubComponents>
                 </Container>
@@ -587,7 +605,7 @@
                                           <Component id="txtMatoanha" min="-2" pref="285" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace pref="125" max="32767" attributes="0"/>
+                                  <EmptySpace pref="117" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel39" min="-2" pref="101" max="-2" attributes="0"/>
@@ -718,7 +736,7 @@
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnTimtoanha" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="88" max="32767" attributes="0"/>
+                                  <EmptySpace pref="80" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel24" min="-2" pref="156" max="-2" attributes="0"/>
@@ -822,7 +840,7 @@
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="1">
-                                <StringItem index="0" value="Ch&#x1b0;a c&#xf3; th&#xf4;ng tin"/>
+                                <StringItem index="0" value="&lt;ch&#x1b0;a c&#xf3; th&#xf4;ng tin&gt;"/>
                               </StringArray>
                             </Property>
                           </Properties>
@@ -849,7 +867,7 @@
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                               <StringArray count="1">
-                                <StringItem index="0" value="Ch&#x1b0;a c&#xf3; th&#xf4;ng tin"/>
+                                <StringItem index="0" value="&lt;Ph&#xf2;ng tr&#x1ed1;ng&gt;"/>
                               </StringArray>
                             </Property>
                           </Properties>
@@ -918,10 +936,6 @@
                       <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                       <Component id="btnTimkiem" min="-2" pref="128" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jLabel2" min="-2" pref="74" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
-                      <Component id="jComboBox1" min="-2" pref="195" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -929,11 +943,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jComboBox1" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           <Component id="btnTimkiem" alignment="3" max="32767" attributes="0"/>
                           <Component id="txtTim" pref="42" max="32767" attributes="0"/>
                           <Component id="jLabel50" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="3" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                   </Group>
@@ -972,28 +984,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTimkiemActionPerformed"/>
               </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel2">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="11" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="K&#x1ebf;t qu&#x1ea3; l&#x1ecd;c:"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox1">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Tahoma" size="11" style="1"/>
-                </Property>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="3">
-                    <StringItem index="0" value="T&#x1ea5;t c&#x1ea3; (10)"/>
-                    <StringItem index="1" value="&#x110;ang s&#x1eed; d&#x1ee5;ng(10)"/>
-                    <StringItem index="2" value="C&#xf2;n tr&#x1ed1;ng (0)"/>
-                  </StringArray>
-                </Property>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>

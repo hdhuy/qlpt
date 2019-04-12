@@ -32,7 +32,14 @@ public class thanhtoan extends javax.swing.JPanel {
     public thanhtoan() {
         initComponents();
         model = (DefaultTableModel) tblPhongtro.getModel();
+        reload();
+    }
+
+    void reload() {
+        clearAll();
+        model.setRowCount(0);
         capnhatdulieuDATA();
+        doDuLieuBang(timPhong(txtTim.getText()));
     }
 
     void capnhatdulieuDATA() {
@@ -45,23 +52,79 @@ public class thanhtoan extends javax.swing.JPanel {
     /* HUY  ------ */
     ArrayList<Phong> timPhong(String value) {
         ArrayList<Phong> p = new ArrayList<>();
+        ArrayList<Phong> p2 = new ArrayList<>();
+        //p = null;
+        String loc = cboLocketqua.getSelectedItem().toString() + "";
         try {
-            if (value == "") {
-                return listP;
-            }
-            for (Phong check : listP) {
-                String maphong = check.getMaphong() + "";
-                String tenphong = check.getTenphong() + "";
-                if (maphong.equalsIgnoreCase(value) || tenphong.equalsIgnoreCase(value)) {
-                    p.add(check);
+            p = listP;
+            if (loc.equals("Tất cả")) {
+                if (value.equals("")) {
+                    p2 = p;
+                }
+                for (Phong check : p) {
+                    String maphong = check.getMaphong() + "";
+                    String tenphong = check.getTenphong() + "";
+                    if (maphong.equalsIgnoreCase(value) || tenphong.equalsIgnoreCase(value)) {
+                        p2.add(check);
+                    }
                 }
             }
-            if (p.size() == 0) {
+            if (loc.equals("Chưa thanh toán")) {
+                for (Phong check : p) {
+                    LocalDate lich = check.getThoigianthanhtoan().toLocalDate();
+                    boolean tt = true;
+                    if (lich.getYear() == LocalDate.now().getYear()) {
+                        if (lich.getMonthValue() < LocalDate.now().getMonthValue()) {
+                            tt = false;
+                        }
+                    } else {
+                        if (lich.getYear() < LocalDate.now().getYear()) {
+                            tt = false;
+                        }
+                    }
+                    if (tt == false) {
+                        if (value.equals("")) {
+                            p2.add(check);
+                        }
+                        String maphong = check.getMaphong() + "";
+                        String tenphong = check.getTenphong() + "";
+                        if (maphong.equalsIgnoreCase(value) || tenphong.equalsIgnoreCase(value)) {
+                            p2.add(check);
+                        }
+                    }
+                }
+            }
+            if (loc.equals("Đã thanh toán")) {
+                for (Phong check : p) {
+                    LocalDate lich = check.getThoigianthanhtoan().toLocalDate();
+                    boolean tt = true;
+                    if (lich.getYear() == LocalDate.now().getYear()) {
+                        if (lich.getMonthValue() < LocalDate.now().getMonthValue()) {
+                            tt = false;
+                        }
+                    } else {
+                        if (lich.getYear() < LocalDate.now().getYear()) {
+                            tt = false;
+                        }
+                    }
+                    if (tt == true) {
+                        if (value.equals("")) {
+                            p2.add(check);
+                        }
+                        String maphong = check.getMaphong() + "";
+                        String tenphong = check.getTenphong() + "";
+                        if (maphong.equalsIgnoreCase(value) || tenphong.equalsIgnoreCase(value)) {
+                            p2.add(check);
+                        }
+                    }
+                }
+            }
+            if (p2.size() == 0) {
                 JOptionPane.showMessageDialog(this, "Không có phòng này !");
             }
         } catch (Exception e) {
         }
-        return p;
+        return p2;
     }
 
     void clearAll() {
@@ -106,7 +169,7 @@ public class thanhtoan extends javax.swing.JPanel {
                 tongtien = 0;
                 tiendien = 0;
                 tiennuoc = 0;
-                tienxe=0;
+                tienxe = 0;
                 tienphong = 0;
             }
         }
@@ -114,7 +177,7 @@ public class thanhtoan extends javax.swing.JPanel {
         txtTongtt.setText(tongtien + " đ");
         txtTiendien.setText(tiendien + " đ");
         txtTiennuoc.setText(tiennuoc + " đ");
-        txtTienxe.setText(tienxe+" đ");
+        txtTienxe.setText(tienxe + " đ");
         txtTiennha.setText(tienphong + " đ");
     }
 
@@ -186,6 +249,7 @@ public class thanhtoan extends javax.swing.JPanel {
         txtTim = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnTIMKIEM = new javax.swing.JButton();
+        cboLocketqua = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
 
         jPanel12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -282,7 +346,7 @@ public class thanhtoan extends javax.swing.JPanel {
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
+                .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
                 .addGap(17, 17, 17)
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
@@ -305,7 +369,7 @@ public class thanhtoan extends javax.swing.JPanel {
                                     .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel12Layout.createSequentialGroup()
-                                .addGap(0, 50, Short.MAX_VALUE)
+                                .addGap(0, 47, Short.MAX_VALUE)
                                 .addComponent(btnThanhtoan, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -355,6 +419,14 @@ public class thanhtoan extends javax.swing.JPanel {
             }
         });
 
+        cboLocketqua.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cboLocketqua.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Chưa thanh toán", "Đã thanh toán" }));
+        cboLocketqua.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboLocketquaItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -362,20 +434,24 @@ public class thanhtoan extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(btnTIMKIEM, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(55, 55, 55)
+                .addComponent(cboLocketqua, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnTIMKIEM, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cboLocketqua, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTIMKIEM, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addComponent(txtTim)
         );
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 3, 24)); // NOI18N
@@ -435,8 +511,7 @@ public class thanhtoan extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTongttActionPerformed
 
     private void btnTIMKIEMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTIMKIEMActionPerformed
-        ArrayList<Phong> p = timPhong(txtTim.getText());
-        doDuLieuBang(p);
+        reload();
     }//GEN-LAST:event_btnTIMKIEMActionPerformed
 
     private void tblPhongtroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPhongtroMouseClicked
@@ -450,17 +525,18 @@ public class thanhtoan extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn phòng dưới bảng !");
         }
         thanhtoan(p);
-        ArrayList<Phong> ketQuaTim = timPhong(txtTim.getText());
-        clearAll();
-        doDuLieuBang(ketQuaTim);
-        Phong newp = chonPhong();
-        doDuLieuText(newp);
+        reload();
     }//GEN-LAST:event_btnThanhtoanActionPerformed
+
+    private void cboLocketquaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboLocketquaItemStateChanged
+        reload();
+    }//GEN-LAST:event_cboLocketquaItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTIMKIEM;
     private javax.swing.JButton btnThanhtoan;
+    private javax.swing.JComboBox<String> cboLocketqua;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel26;

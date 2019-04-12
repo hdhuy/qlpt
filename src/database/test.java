@@ -13,6 +13,6 @@ public class test {
     public static void main(String[] args) {
         Date d;
         d=Date.valueOf(LocalDate.of(1000, 1, 2));
-        System.out.println(d.toString());
+//        
     }
 }
