@@ -5,16 +5,14 @@ public class Toanha {
     int matoanha;
     String tentoanha;
     String diachi;
-    int sophong;
 
     public Toanha() {
     }
 
-    public Toanha(int matoanha, String tentoanha, String diachi, int sophong) {
+    public Toanha(int matoanha, String tentoanha, String diachi) {
         this.matoanha = matoanha;
         this.tentoanha = tentoanha;
         this.diachi = diachi;
-        this.sophong = sophong;
     }
 
     public int getMatoanha() {
@@ -41,13 +39,5 @@ public class Toanha {
         this.diachi = diachi;
     }
 
-    public int getSophong() {
-        return sophong;
-    }
-
-    public void setSophong(int sophong) {
-        this.sophong = sophong;
-    }
     
-            
 }

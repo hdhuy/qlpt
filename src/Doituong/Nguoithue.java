@@ -1,32 +1,32 @@
 
 package Doituong;
 
+import java.sql.Date;
+
 public class Nguoithue {
     int manguoithue;
     String tennguoithue;
     String ngayvao;
-    String ngayra;
-    int maphong;
     String ngaysinh;
+    int gioitinh;
+    String email;
     String quequan;
-    String sdt;
+    int sdt;
     String cmnd;
-    int sodu;
 
     public Nguoithue() {
     }
 
-    public Nguoithue(int manguoithue, String tennguoithue, String ngayvao, String ngayra, int maphong, String ngaysinh, String quequan, String sdt, String cmnd, int sodu) {
+    public Nguoithue(int manguoithue, String tennguoithue, String ngayvao, String ngaysinh, int gioitinh, String email, String quequan, int sdt, String cmnd) {
         this.manguoithue = manguoithue;
         this.tennguoithue = tennguoithue;
         this.ngayvao = ngayvao;
-        this.ngayra = ngayra;
-        this.maphong = maphong;
         this.ngaysinh = ngaysinh;
+        this.gioitinh = gioitinh;
+        this.email = email;
         this.quequan = quequan;
         this.sdt = sdt;
         this.cmnd = cmnd;
-        this.sodu = sodu;
     }
 
     public int getManguoithue() {
@@ -53,28 +53,28 @@ public class Nguoithue {
         this.ngayvao = ngayvao;
     }
 
-    public String getNgayra() {
-        return ngayra;
-    }
-
-    public void setNgayra(String ngayra) {
-        this.ngayra = ngayra;
-    }
-
-    public int getMaphong() {
-        return maphong;
-    }
-
-    public void setMaphong(int maphong) {
-        this.maphong = maphong;
-    }
-
     public String getNgaysinh() {
         return ngaysinh;
     }
 
     public void setNgaysinh(String ngaysinh) {
         this.ngaysinh = ngaysinh;
+    }
+
+    public int getGioitinh() {
+        return gioitinh;
+    }
+
+    public void setGioitinh(int gioitinh) {
+        this.gioitinh = gioitinh;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getQuequan() {
@@ -85,11 +85,11 @@ public class Nguoithue {
         this.quequan = quequan;
     }
 
-    public String getSdt() {
+    public int getSdt() {
         return sdt;
     }
 
-    public void setSdt(String sdt) {
+    public void setSdt(int sdt) {
         this.sdt = sdt;
     }
 
@@ -101,13 +101,5 @@ public class Nguoithue {
         this.cmnd = cmnd;
     }
 
-    public int getSodu() {
-        return sodu;
-    }
-
-    public void setSodu(int sodu) {
-        this.sodu = sodu;
-    }
-    
     
 }

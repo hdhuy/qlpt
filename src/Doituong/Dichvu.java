@@ -3,31 +3,41 @@ package Doituong;
 
 
 public class Dichvu {
-    int dien;
-    int nuoc;
-
+    int giadien;
+    int gianuoc;
+    int giaxe;
+    
     public Dichvu() {
     }
 
-    public Dichvu(int dien, int nuoc) {
-        this.dien = dien;
-        this.nuoc = nuoc;
+    public Dichvu(int giadien, int gianuoc, int giaxe) {
+        this.giadien = giadien;
+        this.gianuoc = gianuoc;
+        this.giaxe = giaxe;
     }
 
-    public int getDien() {
-        return dien;
+    public int getGiadien() {
+        return giadien;
     }
 
-    public void setDien(int dien) {
-        this.dien = dien;
+    public void setGiadien(int giadien) {
+        this.giadien = giadien;
     }
 
-    public int getNuoc() {
-        return nuoc;
+    public int getGianuoc() {
+        return gianuoc;
     }
 
-    public void setNuoc(int nuoc) {
-        this.nuoc = nuoc;
+    public void setGianuoc(int gianuoc) {
+        this.gianuoc = gianuoc;
+    }
+
+    public int getGiaxe() {
+        return giaxe;
+    }
+
+    public void setGiaxe(int giaxe) {
+        this.giaxe = giaxe;
     }
     
 }
