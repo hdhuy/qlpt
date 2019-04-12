@@ -10,31 +10,32 @@ package Doituong;
  * @author Huy
  */
 public class Dangnhap {
-    String tendangnhap;
-    String matkhau;
+    String ten;
+    String mk;
 
     public Dangnhap() {
     }
 
-    public Dangnhap(String tendangnhap, String matkhau) {
-        this.tendangnhap = tendangnhap;
-        this.matkhau = matkhau;
+    public Dangnhap(String ten, String mk) {
+        this.ten = ten;
+        this.mk = mk;
     }
 
-    public String getTendangnhap() {
-        return tendangnhap;
+    public String getTen() {
+        return ten;
     }
 
-    public void setTendangnhap(String tendangnhap) {
-        this.tendangnhap = tendangnhap;
+    public void setTen(String ten) {
+        this.ten = ten;
     }
 
-    public String getMatkhau() {
-        return matkhau;
+    public String getMk() {
+        return mk;
     }
 
-    public void setMatkhau(String matkhau) {
-        this.matkhau = matkhau;
+    public void setMk(String mk) {
+        this.mk = mk;
     }
+    
     
 }

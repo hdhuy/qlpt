@@ -1,6 +1,8 @@
 
 package Doituong;
 
+import java.sql.Date;
+
 public class Hoadon {
     int mahoadon;
     int maphong;
@@ -9,15 +11,18 @@ public class Hoadon {
     String tenphong;
     int tiennha;
     int sodiensudung;
-    int giadin;
+    int giadien;
     int sonuocsudung;
     int gianuoc;
+    int soluongxe;
+    int tienxe;
     int tongtien;
+    Date thoigian;
 
     public Hoadon() {
     }
 
-    public Hoadon(int mahoadon, int maphong, int manguoithue, String tennguoithue, String tenphong, int tiennha, int sodiensudung, int giadin, int sonuocsudung, int gianuoc, int tongtien) {
+    public Hoadon(int mahoadon, int maphong, int manguoithue, String tennguoithue, String tenphong, int tiennha, int sodiensudung, int giadin, int sonuocsudung, int gianuoc, int soluongxe, int tienxe, int tongtien, Date thoigian) {
         this.mahoadon = mahoadon;
         this.maphong = maphong;
         this.manguoithue = manguoithue;
@@ -25,10 +30,13 @@ public class Hoadon {
         this.tenphong = tenphong;
         this.tiennha = tiennha;
         this.sodiensudung = sodiensudung;
-        this.giadin = giadin;
+        this.giadien = giadin;
         this.sonuocsudung = sonuocsudung;
         this.gianuoc = gianuoc;
+        this.soluongxe = soluongxe;
+        this.tienxe = tienxe;
         this.tongtien = tongtien;
+        this.thoigian = thoigian;
     }
 
     public int getMahoadon() {
@@ -87,12 +95,12 @@ public class Hoadon {
         this.sodiensudung = sodiensudung;
     }
 
-    public int getGiadin() {
-        return giadin;
+    public int getGiadien() {
+        return giadien;
     }
 
-    public void setGiadin(int giadin) {
-        this.giadin = giadin;
+    public void setGiadien(int giadien) {
+        this.giadien = giadien;
     }
 
     public int getSonuocsudung() {
@@ -111,6 +119,22 @@ public class Hoadon {
         this.gianuoc = gianuoc;
     }
 
+    public int getSoluongxe() {
+        return soluongxe;
+    }
+
+    public void setSoluongxe(int soluongxe) {
+        this.soluongxe = soluongxe;
+    }
+
+    public int getTienxe() {
+        return tienxe;
+    }
+
+    public void setTienxe(int tienxe) {
+        this.tienxe = tienxe;
+    }
+
     public int getTongtien() {
         return tongtien;
     }
@@ -118,6 +142,14 @@ public class Hoadon {
     public void setTongtien(int tongtien) {
         this.tongtien = tongtien;
     }
-    
+
+    public Date getThoigian() {
+        return thoigian;
+    }
+
+    public void setThoigian(Date thoigian) {
+        this.thoigian = thoigian;
+    }
+
     
 }

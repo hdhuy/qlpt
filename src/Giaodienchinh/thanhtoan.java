@@ -23,8 +23,11 @@ import javax.swing.table.DefaultTableModel;
 public class thanhtoan extends javax.swing.JPanel {
 
     DefaultTableModel model;
+
     ArrayList<Phong> listP = new ArrayList<>();
     ArrayList<Dichvu> listD = new ArrayList<>();
+    ArrayList<Nguoithue> listN = new ArrayList<>();
+
     database data = new database();
     Connection con = data.getKetnoi();
     int tongtien = 0;
@@ -45,8 +48,10 @@ public class thanhtoan extends javax.swing.JPanel {
     void capnhatdulieuDATA() {
         listP = null;
         listD = null;
+        listN=null;
         listP = data.SelectAll("phong");
         listD = data.SelectAll("dichvu");
+        listN=data.SelectAll("nguoithue");
     }
 
     /* HUY  ------ */
@@ -189,7 +194,7 @@ public class thanhtoan extends javax.swing.JPanel {
             for (Phong check : listP) {
                 String maphong = check.getMaphong() + "";
                 String tenphong = check.getTenphong() + "";
-                if (maphong.equalsIgnoreCase(value) || tenphong.equalsIgnoreCase(value)) {
+                if (maphong.equalsIgnoreCase(value)) {
                     p = check;
                 }
             }
@@ -197,6 +202,23 @@ public class thanhtoan extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Chọn phòng sai" + e);
         }
         return p;
+    }
+
+    Nguoithue chonNguoiThue(Phong p) {
+
+        String mant = p.getManguoithue() + "";
+        Nguoithue n = new Nguoithue();
+        try {
+            for (Nguoithue check : listN) {
+                String ma = check.getManguoithue() + "";
+                if (ma.equalsIgnoreCase(mant)) {
+                    n = check;
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Chọn phòng sai" + e);
+        }
+        return n;
     }
 
     void thanhtoan(Phong p) {
@@ -220,6 +242,32 @@ public class thanhtoan extends javax.swing.JPanel {
         } catch (Exception e) {
             System.out.println("thanh toán bị lỗi: " + e);
             JOptionPane.showMessageDialog(this, "thanh toán bị lỗi: " + e);
+        }
+    }
+
+    void luuHoaDon(Phong p, Nguoithue n) {
+        String maphong = p.getMaphong() + "";
+        String manguoithue = n.getManguoithue() + "";
+        String tennguoithue = n.getTennguoithue() + "";
+        String tenphong = p.getTenphong() + "";
+        int tiennha = p.getGiaphong();
+        int sodiensudung = p.getSodienmoi() - p.getSodiencu();
+        int giadien = listD.get(0).getGiadien();
+        int sonuocsudung = p.getSonuocmoi() - p.getSonuoccu();
+        int gianuoc = listD.get(0).getGianuoc();
+        int soluongxe = p.getSoluongxe();
+        int tienxe = soluongxe * listD.get(0).getGiaxe();
+        int tong = tiennha + (sodiensudung * giadien) + (sonuocsudung + gianuoc) + tienxe;
+        String thoigian = LocalDate.now().toString();
+        //
+        String sql = "INSERT INTO dbo.HOADON (MaPhong, MaNguoiThue, TenNguoiThue, TenPhong, TienNha, SoDienSuDung, GiaDien, SoNuocSuDung, GiaNuoc, SoLuongXe, TienXe, TongTien, ThoiGian) "
+                + "VALUES (" + maphong + "," + manguoithue + ", N'" + tennguoithue + "', '" + tenphong + "',"
+                + " " + tiennha + "," + sodiensudung + "," + giadien + "," + sonuocsudung + "," + gianuoc + "," + soluongxe + ","
+                + "" + tienxe + "," + tong + ", '" + thoigian + "');";
+        try {
+            Statement stm = con.createStatement();
+            stm.executeQuery(sql);
+        } catch (Exception e) {
         }
     }
 
@@ -520,12 +568,17 @@ public class thanhtoan extends javax.swing.JPanel {
     }//GEN-LAST:event_tblPhongtroMouseClicked
 
     private void btnThanhtoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhtoanActionPerformed
-        Phong p = chonPhong();
-        if (p == null) {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn phòng dưới bảng !");
+        try {
+            Phong p = chonPhong();
+            if (p == null) {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn phòng dưới bảng !");
+            }
+            thanhtoan(p);
+            Nguoithue n=chonNguoiThue(p);
+            luuHoaDon(p, n);
+            reload();
+        } catch (Exception e) {
         }
-        thanhtoan(p);
-        reload();
     }//GEN-LAST:event_btnThanhtoanActionPerformed
 
     private void cboLocketquaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboLocketquaItemStateChanged
