@@ -1014,6 +1014,17 @@ public class main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDoiTTActionPerformed
 
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        // TODO add your handling code here:
+        int kq = JOptionPane.showConfirmDialog(this, "Bạn có muốn đăng xuất không?", "Xác nhận",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+        if(kq == JOptionPane.YES_OPTION){
+            dispose();
+        }else if(kq == JOptionPane.NO_OPTION){
+            
+        }else {
+            JOptionPane.showMessageDialog(this, "");
+        }
+    }
     /*PHƯƠNG THỨC MAIN*/
     
 //    public static void main(String args[]) {
