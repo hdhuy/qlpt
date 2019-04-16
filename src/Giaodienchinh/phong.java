@@ -32,6 +32,7 @@ public class phong extends javax.swing.JPanel {
         initComponents();
         model = (DefaultTableModel) tblPhongtro.getModel();
         reload();
+        //locKetQua();
     }
 
     /*HUẾ---     */
@@ -71,6 +72,7 @@ public class phong extends javax.swing.JPanel {
             for (Phong show : timPhong(txtTim.getText())) {
                 doDuLieuBang(show);
             }
+
         } catch (Exception e) {
         }
     }
@@ -121,12 +123,60 @@ public class phong extends javax.swing.JPanel {
         try {
             Toanha t = timToaNha(p);
             Nguoithue n = phong.this.timNguoiThue(p);
-            truyxuat tx = new truyxuat(p, t, n);
-            model.addRow(new Object[]{p.getMaphong(), p.getTenphong(), t.getTentoanha(), n.getTennguoithue(), t.getDiachi()});
-            truyxuat.add(tx);
+
+            String value = (String) cboLocketqua.getSelectedItem().toString();
+            if (value.equals("Tất cả")) {
+                truyxuat tx = new truyxuat(p, t, n);
+                model.addRow(new Object[]{p.getMaphong(), p.getTenphong(), t.getTentoanha(), n.getTennguoithue(), t.getDiachi()});
+                truyxuat.add(tx);
+            }
+            if (value.equals("Còn trống")) {
+                if (p.getManguoithue() == 1) {
+                    truyxuat tx = new truyxuat(p, t, n);
+                    model.addRow(new Object[]{p.getMaphong(), p.getTenphong(), t.getTentoanha(), n.getTennguoithue(), t.getDiachi()});
+                    truyxuat.add(tx);
+                }
+            }
+            if (value.equals("Đã có chủ")) {
+                if (p.getManguoithue() != 1) {
+                    truyxuat tx = new truyxuat(p, t, n);
+                    model.addRow(new Object[]{p.getMaphong(), p.getTenphong(), t.getTentoanha(), n.getTennguoithue(), t.getDiachi()});
+                    truyxuat.add(tx);
+                }
+            }
         } catch (Exception e) {
             //JOptionPane.showMessageDialog(this, "Lỗi đổ dữ liệu bảng : "+e);
         }
+    }
+
+    void locKetQua() {
+        String value = (String) cboLocketqua.getSelectedItem().toString();
+        int rowcount = tblPhongtro.getRowCount();
+        try {
+            if (value.equals("Đã có chủ")) {
+                for (int i = 0; i < rowcount; i++) {
+                    String tenchuphong = tblPhongtro.getValueAt(i, 3).toString();
+                    if (tenchuphong.equals("<Phòng trống>")) {
+                        tblPhongtro.remove(i);
+                    }
+                }
+            }
+
+            if (value.equals("Còn trống")) {
+                for (int i = 0; i < rowcount; i++) {
+                    String tenchuphong = tblPhongtro.getValueAt(i, 3).toString();
+                    if (!tenchuphong.equals("<Phòng trống>")) {
+                        tblPhongtro.remove(i);
+                    }
+                }
+            }
+            if (value.equals("Tất cả")) {
+                reload();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(btnCAPNHAT, "Lỗi lọc dữ liệu: " + e);
+        }
+
     }
 
     void doDuLieuText() {
@@ -490,6 +540,8 @@ public class phong extends javax.swing.JPanel {
         jLabel50 = new javax.swing.JLabel();
         txtTim = new javax.swing.JTextField();
         btnTimkiem = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        cboLocketqua = new javax.swing.JComboBox<>();
 
         tblPhongtro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -994,6 +1046,22 @@ public class phong extends javax.swing.JPanel {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Lọc kết quả:");
+
+        cboLocketqua.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        cboLocketqua.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Còn trống", "Đã có chủ" }));
+        cboLocketqua.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboLocketquaItemStateChanged(evt);
+            }
+        });
+        cboLocketqua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboLocketquaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -1005,16 +1073,29 @@ public class phong extends javax.swing.JPanel {
                 .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addComponent(btnTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(90, 90, 90)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(cboLocketqua, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTimkiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtTim, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                    .addComponent(jLabel50, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(7, 7, 7))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnTimkiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtTim)
+                        .addComponent(jLabel50, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(2, 2, 2))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cboLocketqua)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout PhongLayout = new javax.swing.GroupLayout(Phong);
@@ -1042,7 +1123,7 @@ public class phong extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -1090,13 +1171,13 @@ public class phong extends javax.swing.JPanel {
 
     private void btnSUAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSUAActionPerformed
         doDuLieuEmailVaoCOMBOBOX(timListNguoiThue(txtTimnguoithue.getText()));
-        
+
         txtTimtoanha.setText(txtTentoanha.getText());
         doDuLieuDiaChiVaoCOMBOBOX(timListToaNha(txtTimtoanha.getText()));
-        
+
         txtTimnguoithue.setText(txtTenchuphong.getText());
         doDuLieuEmailVaoCOMBOBOX(timListNguoiThue(txtTimnguoithue.getText()));
-        
+
         normalTool.setVisible(false);
         addTool.setVisible(false);
         editTool.setVisible(true);
@@ -1154,7 +1235,7 @@ public class phong extends javax.swing.JPanel {
             model.setRowCount(0);
             sua(matoanha, manguoithue);
             //cập nhật ngay sau đó
-            
+
             reload();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Lỗi nút sửa: " + e);
@@ -1181,6 +1262,14 @@ public class phong extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnTHANHLYActionPerformed
 
+    private void cboLocketquaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboLocketquaItemStateChanged
+        reload();
+    }//GEN-LAST:event_cboLocketquaItemStateChanged
+
+    private void cboLocketquaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboLocketquaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboLocketquaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Phong;
@@ -1202,12 +1291,14 @@ public class phong extends javax.swing.JPanel {
     private javax.swing.JButton btnXOA;
     private javax.swing.JComboBox<String> cboDiachiemail;
     private javax.swing.JComboBox<String> cboDiachitoanha;
+    private javax.swing.JComboBox<String> cboLocketqua;
     private javax.swing.JPanel editTool;
     private javax.swing.JPanel editTopPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;

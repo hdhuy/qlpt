@@ -26,6 +26,7 @@ public class thanhtoan extends javax.swing.JPanel {
 
     ArrayList<Phong> listP = new ArrayList<>();
     ArrayList<Dichvu> listD = new ArrayList<>();
+    ArrayList<Toanha> listT = new ArrayList<>();
     ArrayList<Nguoithue> listN = new ArrayList<>();
 
     database data = new database();
@@ -42,16 +43,21 @@ public class thanhtoan extends javax.swing.JPanel {
         clearAll();
         model.setRowCount(0);
         capnhatdulieuDATA();
-        doDuLieuBang(timPhong(txtTim.getText()));
+        ArrayList<Phong> p = timPhong(txtTim.getText());
+        for (Phong show : p) {
+            doDuLieuCacDong(show);
+        }
     }
 
     void capnhatdulieuDATA() {
         listP = null;
         listD = null;
-        listN=null;
+        listN = null;
+        listT = null;
         listP = data.SelectAll("phong");
         listD = data.SelectAll("dichvu");
-        listN=data.SelectAll("nguoithue");
+        listN = data.SelectAll("nguoithue");
+        listT = data.SelectAll("toanha");
     }
 
     /* HUY  ------ */
@@ -132,6 +138,27 @@ public class thanhtoan extends javax.swing.JPanel {
         return p2;
     }
 
+    Toanha timToaNha(Phong p) {
+        Toanha toanha = null;
+        for (Toanha check : listT) {
+            if (check.getMatoanha() == p.getMatoanha()) {
+                toanha = check;
+            }
+        }
+        return toanha;
+    }
+
+    Nguoithue timNguoiThue(Phong p) {
+        Nguoithue nguoithue = null;
+        int mant = p.getManguoithue();
+        for (Nguoithue check : listN) {
+            if (check.getManguoithue() == mant) {
+                nguoithue = check;
+            }
+        }
+        return nguoithue;
+    }
+
     void clearAll() {
         txtTiendien.setText("");
         txtTiennuoc.setText("");
@@ -141,14 +168,19 @@ public class thanhtoan extends javax.swing.JPanel {
         txtTongtt.setText("");
     }
 
-    void doDuLieuBang(ArrayList<Phong> p) {
-        model.setRowCount(0);
-        for (Phong show : p) {
-            model.addRow(new Object[]{show.getMatoanha(), show.getTenphong(), show.getMaphong()});
+    void doDuLieuCacDong(Phong p) {
+        try {
+            Toanha t = timToaNha(p);
+            Nguoithue n = timNguoiThue(p);
+            if (!n.getTennguoithue().equalsIgnoreCase("<Phòng trống>")) {
+                model.addRow(new Object[]{p.getMaphong(), p.getTenphong(), t.getTentoanha(), n.getTennguoithue(), t.getDiachi()});
+            }
+        } catch (Exception e) {
+            //JOptionPane.showMessageDialog(this, "Đổ dữ liệu dòng sai !" + e);
         }
-    }
 
-    void doDuLieuText(Phong p) {
+    }
+        void doDuLieuText(Phong p) {
         int sodien = p.getSodienmoi() - p.getSodiencu();
         int sonuoc = p.getSonuocmoi() - p.getSonuoccu();
         int soxe = p.getSoluongxe();
@@ -165,7 +197,7 @@ public class thanhtoan extends javax.swing.JPanel {
         LocalDate l = d.toLocalDate();
         txtLichthanhtoan.setText(l.toString());
 
-        tongtien = tiendien + tiennuoc + tienphong + tienxe*p.getSoluongxe();
+        tongtien = tiendien + tiennuoc + tienphong + tienxe * p.getSoluongxe();
 
         int nam = LocalDate.now().getYear();
         int thang = LocalDate.now().getMonthValue();
@@ -188,7 +220,7 @@ public class thanhtoan extends javax.swing.JPanel {
 
     Phong chonPhong() {
         int row = tblPhongtro.getSelectedRow();
-        String value = tblPhongtro.getValueAt(row, 2) + "";
+        String value = tblPhongtro.getValueAt(row, 0) + "";
         Phong p = new Phong();
         try {
             for (Phong check : listP) {
@@ -260,8 +292,8 @@ public class thanhtoan extends javax.swing.JPanel {
         int tong = tiennha + (sodiensudung * giadien) + (sonuocsudung + gianuoc) + tienxe;
         String thoigian = LocalDate.now().toString();
         //
-        String nam=LocalDate.now().getYear()+"";
-        String thang=LocalDate.now().getMonthValue()+"";
+        String nam = LocalDate.now().getYear() + "";
+        String thang = LocalDate.now().getMonthValue() + "";
         //
 //        String update="update DOANHTHU set thang"+thang+" += "+tong+" where Nam="+nam;
 //        JOptionPane.showMessageDialog(btnTIMKIEM, update);
@@ -276,19 +308,20 @@ public class thanhtoan extends javax.swing.JPanel {
             //stm2.executeUpdate(update);
         } catch (Exception e) {
         }
-        return tong+"";
+        return tong + "";
     }
-    void themDoanhthu(String tong){
-       // String tong="1000";
-        String nam=LocalDate.now().getYear()+"";
-        String thang=LocalDate.now().getMonthValue()+"";
+
+    void themDoanhthu(String tong) {
+        // String tong="1000";
+        String nam = LocalDate.now().getYear() + "";
+        String thang = LocalDate.now().getMonthValue() + "";
         //
-        String update="update DOANHTHU set thang"+thang+" += "+tong+" where Nam="+nam+";";
+        String update = "update DOANHTHU set thang" + thang + " += " + tong + " where Nam=" + nam + ";";
         try {
             Statement stm = con.createStatement();
             stm.executeUpdate(update);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(btnTIMKIEM, "lỗi up"+e);
+            JOptionPane.showMessageDialog(btnTIMKIEM, "lỗi up" + e);
         }
     }
 
@@ -456,11 +489,11 @@ public class thanhtoan extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã tòa nhà", "Tên phòng", "Mã phòng"
+                "Mã phòng", "Tên phòng", "Tên tòa nhà", "Tên chủ phòng", "Địa chỉ"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -595,8 +628,8 @@ public class thanhtoan extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Vui lòng chọn phòng dưới bảng !");
             }
             thanhtoan(p);
-            Nguoithue n=chonNguoiThue(p);
-            String tong=luuHoaDon(p, n);
+            Nguoithue n = chonNguoiThue(p);
+            String tong = luuHoaDon(p, n);
             themDoanhthu(tong);
             reload();
         } catch (Exception e) {

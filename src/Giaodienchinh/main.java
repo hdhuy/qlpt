@@ -15,6 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Vector;
 import javax.swing.JFrame;
@@ -51,13 +52,12 @@ public class main extends javax.swing.JFrame {
         QuanlichothueSetCard();
         getAllDataToTable();
         searchByYear();
-        
-        txtTendangnhap.setText(dn.getTen());
-        txtMatkhau.setText(dn.getMk());
     }
 
-    public void getDN(Dangnhap d) {
+    public void setDN(Dangnhap d) {
         this.dn = d;
+        txtTendangnhap.setText(dn.getTen());
+        txtMatkhau.setText(dn.getMk());
     }
 
     void capnhatdulieuDATA() {
@@ -211,7 +211,7 @@ public class main extends javax.swing.JFrame {
         modelDichvu.setRowCount(0);
         for (Phong show : p) {
             modelDichvu.addRow(new Object[]{show.getMaphong(), show.getTenphong(), show.getSodiencu(),
-                show.getSodienmoi(), show.getSonuoccu(), show.getSonuocmoi()
+                show.getSodienmoi(), show.getSonuoccu(), show.getSonuocmoi(), show.getLichcapnhatSoNuoc(), show.getLichcapnhatSoDien()
             });
         }
     }
@@ -240,6 +240,11 @@ public class main extends javax.swing.JFrame {
     void setTextSoDienNuoc(Phong p) {
         txtSodienmoi.setValue(p.getSodienmoi());
         txtSonuocmoi.setValue(p.getSonuocmoi());
+        int sodiensd = p.getSodienmoi() - p.getSodiencu();
+        int sonuocsd = p.getSonuocmoi() - p.getSonuoccu();
+        txtSodiendasudung.setText(sodiensd + "");
+        txtSonuocdasudung.setText(sonuocsd + "");
+
     }
 
     void tinhSoDienDaSuDung() {
@@ -261,9 +266,12 @@ public class main extends javax.swing.JFrame {
         int sdm = (int) txtSodienmoi.getValue();
         String maphong = (String) tblBangdichvu.getValueAt(row, 0).toString();
         String sql = "update phong set sodiencu=" + sdc + ", sodienmoi=" + sdm + " where maphong=" + maphong;
+        String lich = LocalDate.now().toString() + "";
+        String update = "update phong set lichnhapsodien='" + lich + "' where maphong=" + maphong;
         try {
             Statement stm = con.createStatement();
             stm.executeUpdate(sql);
+            stm.executeUpdate(update);
         } catch (Exception e) {
         }
     }
@@ -274,10 +282,26 @@ public class main extends javax.swing.JFrame {
         int snm = (int) txtSonuocmoi.getValue();
         String maphong = (String) tblBangdichvu.getValueAt(row, 0).toString();
         String sql = "update phong set sonuoccu=" + snc + ", sonuocmoi=" + snm + " where maphong=" + maphong;
+        String lich = LocalDate.now().toString() + "";
+        String update = "update phong set lichnhapsonuoc='" + lich + "' where maphong=" + maphong;
+        try {
+            Statement stm = con.createStatement();
+            stm.executeUpdate(sql);
+            stm.executeUpdate(update);
+        } catch (Exception e) {
+        }
+    }
+
+    void doiThongTin() {
+        String tencu = dn.getTen();
+        String ten = txtTendangnhap.getText();
+        String mk = txtMatkhau.getText();
+        String sql = "update dangnhap set tendangnhap=N'" + ten + "' , matkhau=N'" + mk + "' where tendangnhap='"+ tencu+"';";
         try {
             Statement stm = con.createStatement();
             stm.executeUpdate(sql);
         } catch (Exception e) {
+            //JOptionPane.showMessageDialog(rootPane, "Lỗi thay thông tin"+e);
         }
     }
 
@@ -659,7 +683,7 @@ public class main extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mã phòng", "Tên phòng", "Số điện cũ", "Số điện mới", "Số nước cũ", "Số nước mới"
+                "Mã phòng", "Tên phòng", "Số điện cũ", "Số điện mới", "Số nước cũ", "Số nước mới", "Lịch nhập số nước", "Lịch nhập số điện"
             }
         ));
         tblBangdichvu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1003,61 +1027,63 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton22ActionPerformed
 
     private void btnDoiTTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoiTTActionPerformed
-        String mkm=JOptionPane.showInputDialog("Xác nhận mk");
-        String mkc=dn.getMk();
-        if(mkm.equals(mkc)){
+        String mkm = JOptionPane.showInputDialog("Xác nhận lại mật khẩu cũ !");
+        String mkc = dn.getMk();
+        if (mkm.equals(mkc)) {
+            doiThongTin();
             JOptionPane.showMessageDialog(this, "Bạn đã thay đổi thông tin !");
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Mật khẩu không đúng, bạn sẽ bị đăng xuất ngay bây giờ :))");
             new login().setVisible(true);
             this.setVisible(false);
         }
     }//GEN-LAST:event_btnDoiTTActionPerformed
 
-    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {                                        
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-        int kq = JOptionPane.showConfirmDialog(this, "Bạn có muốn đăng xuất không?", "Xác nhận",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
-        if(kq == JOptionPane.YES_OPTION){
+        int kq = JOptionPane.showConfirmDialog(this, "Bạn có muốn đăng xuất không?", "Xác nhận", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (kq == JOptionPane.YES_OPTION) {
             dispose();
-        }else if(kq == JOptionPane.NO_OPTION){
-            
-        }else {
+        } else if (kq == JOptionPane.NO_OPTION) {
+
+        } else {
             JOptionPane.showMessageDialog(this, "");
         }
     }
+
     /*PHƯƠNG THỨC MAIN*/
-    
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new main().setVisible(true);
-//            }
-//        });
-//    }
+
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new main().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDoiTT;
