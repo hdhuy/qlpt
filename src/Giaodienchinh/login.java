@@ -37,8 +37,9 @@ public class login extends javax.swing.JFrame {
             for (Dangnhap check : dn) {
                 if (check.getTen().equals(ten) && check.getMk().equals(mk)) {
                     main main = new main();
+                    main.setDN(check);
                     main.setVisible(true);
-                    main.getDN(check);
+                    
                     this.setVisible(false);
                     ok=true;
                     break;

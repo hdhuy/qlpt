@@ -1,10 +1,9 @@
-
 package Doituong;
 
 import java.sql.Date;
 
-
 public class Phong {
+
     int maphong;
     String tenphong;
     int matoanha;
@@ -18,11 +17,14 @@ public class Phong {
     int sonuoccu;
     Date thoigianthanhtoan;
     int soluongxe;
-    
+
+    String lichcapnhatSoDien;
+    String lichcapnhatSoNuoc;
+
     public Phong() {
     }
 
-    public Phong(int maphong, String tenphong, int matoanha, int manguoithue, int dientich, int giaphong, int soluongnguoi, int sodiencu, int sodienmoi, int sonuocmoi, int sonuoccu, Date thoigianthanhtoan, int soluongxe) {
+    public Phong(int maphong, String tenphong, int matoanha, int manguoithue, int dientich, int giaphong, int soluongnguoi, int sodiencu, int sodienmoi, int sonuocmoi, int sonuoccu, Date thoigianthanhtoan, int soluongxe, String licnhapsopdien, String lichnhapsonuoc) {
         this.maphong = maphong;
         this.tenphong = tenphong;
         this.matoanha = matoanha;
@@ -36,6 +38,8 @@ public class Phong {
         this.sonuoccu = sonuoccu;
         this.thoigianthanhtoan = thoigianthanhtoan;
         this.soluongxe = soluongxe;
+        this.lichcapnhatSoDien = licnhapsopdien;
+        this.lichcapnhatSoNuoc = lichnhapsonuoc;
     }
 
     public int getMaphong() {
@@ -141,5 +145,21 @@ public class Phong {
     public void setSoluongxe(int soluongxe) {
         this.soluongxe = soluongxe;
     }
-    
+
+    public String getLichcapnhatSoDien() {
+        return lichcapnhatSoDien;
+    }
+
+    public void setLichcapnhatSoDien(String lichcapnhatSoDien) {
+        this.lichcapnhatSoDien = lichcapnhatSoDien;
+    }
+
+    public String getLichcapnhatSoNuoc() {
+        return lichcapnhatSoNuoc;
+    }
+
+    public void setLichcapnhatSoNuoc(String lichcapnhatSoNuoc) {
+        this.lichcapnhatSoNuoc = lichcapnhatSoNuoc;
+    }
+
 }
