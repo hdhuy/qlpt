@@ -25,7 +25,7 @@ public class hoadon extends javax.swing.JPanel {
     Connection con = new database.database().getKetnoi();
     String headDetail[] = {"Mã Hóa Đơn", "Mã Phòng", "Mã Người Thuê",
         "Tên Người Thuê", "Tên Phòng", "Tiền Nhà", "Số điện sử dùng", "Giá điện",
-        "Số nước sử dụng", "Giá nước","Số lượng xe","Tiền xe", "Tổng Tiền", "Ngày Thanh Toán"};
+        "Số nước sử dụng", "Giá nước", "Số lượng xe", "Tiền xe", "Tổng Tiền", "Ngày Thanh Toán"};
     DefaultTableModel modelInvoice = new DefaultTableModel(headDetail, 0);
 
     public hoadon() {
@@ -33,20 +33,22 @@ public class hoadon extends javax.swing.JPanel {
         loadDataToTableDetail();
         searchInformation();
     }
-    void xoahd(){
-        int row=tblInvoice.getSelectedRow();
-        String ma=tblInvoice.getValueAt(row, 0).toString()+"";
-        String sql="delete from hoadon where mahoadon="+ma;
-        int is=JOptionPane.showConfirmDialog(cboSelection,"Xóa hóa đơn này ?" );
-        if(is==0){
+
+    void xoahd() {
+        int row = tblInvoice.getSelectedRow();
+        String ma = tblInvoice.getValueAt(row, 0).toString() + "";
+        String sql = "delete from hoadon where mahoadon=" + ma;
+        int is = JOptionPane.showConfirmDialog(cboSelection, "Xóa hóa đơn này ?");
+        if (is == 0) {
             try {
                 Statement stm = con.createStatement();
                 stm.executeQuery(sql);
             } catch (Exception e) {
-            } 
+            }
         }
-        
+
     }
+
     private void loadDataToTableDetail() {
         String sql = "SELECT * FROM HOADON";
         modelInvoice.setRowCount(0);
@@ -75,9 +77,10 @@ public class hoadon extends javax.swing.JPanel {
             }
             tblInvoice.setModel(modelInvoice);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Lỗi đổ dữ liệu bảng:"+e);
+            JOptionPane.showMessageDialog(this, "Lỗi đổ dữ liệu bảng:" + e);
         }
     }
+
     private void searchInformation() {
         txtSearch.addKeyListener(new KeyAdapter() {
             @Override
@@ -97,13 +100,13 @@ public class hoadon extends javax.swing.JPanel {
                         sql = "SELECT * FROM HOADON WHERE [TenPhong] LIKE '%" + txtSearch.getText() + "%'";
 
                     } else if (selection.equals("Ngày")) {
-                        sql = "SELECT * FROM HOADON where DAY([ngay]) = " + txtSearch.getText();
+                        sql = "SELECT * FROM HOADON where DAY([ThoiGian]) = " + txtSearch.getText();
 
                     } else if (selection.equals("Tháng")) {
-                        sql = "SELECT * FROM HOADON where MONTH([ngay]) = " + txtSearch.getText();
+                        sql = "SELECT * FROM HOADON where MONTH([ThoiGian]) = " + txtSearch.getText();
 
                     } else if (selection.equals("Năm")) {
-                        sql = "SELECT * FROM HOADON where YEAR([ngay]) = " + txtSearch.getText();
+                        sql = "SELECT * FROM HOADON where YEAR([ThoiGian]) = " + txtSearch.getText();
                     }
 
                     PreparedStatement prst = con.prepareStatement(sql);
@@ -122,7 +125,9 @@ public class hoadon extends javax.swing.JPanel {
                         data.add(rs.getInt(9));
                         data.add(rs.getInt(10));
                         data.add(rs.getInt(11));
-                        data.add(rs.getDate(12));
+                        data.add(rs.getInt(12));
+                        data.add(rs.getInt(13));
+                        data.add(rs.getDate(14));
 
                         modelInvoice.addRow(data);
                     }
@@ -130,7 +135,6 @@ public class hoadon extends javax.swing.JPanel {
                     tblInvoice.setModel(modelInvoice);
 
                 } catch (SQLException ex) {
-                    ex.printStackTrace();
                 }
                 if (txtSearch.getText().trim().length() == 0) {
                     loadDataToTableDetail();
