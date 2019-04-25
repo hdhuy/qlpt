@@ -137,16 +137,24 @@ public class khachhang extends javax.swing.JPanel {
             if (txtQuequan.getText().equals("")) {
                 noti += ", không có quê quán";
             }
+            
             if (txtCmnd.getText().equals("")) {
                 noti += ", không có cmnd";
             }
+            if (!txtCmnd.getText().matches("/d")) {
+                noti += ", cmnd định dạng sai";
+            }
+            
             if ((int) txtSdt.getValue() == 0) {
                 noti += ", không có sđt";
             }
             if (txtEmail.getText().equals("")) {
                 noti += ", không có email";
             }
-
+            if (txtEmail.getText().matches("[a-zA-Z0-9_].x@[a-zA-Z].com")) {
+                noti += ", email không đúng định dạng";
+            }
+            
             if (noti != "") {
                 noti = "Bạn đang gặp lỗi: " + noti + " ?";
             }

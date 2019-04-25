@@ -65,6 +65,7 @@ public class login extends javax.swing.JFrame {
             config.setVisible(false);
             dangnhap.setVisible(true);
             dn=data.SelectAll("dangnhap");
+            tit.setText("Đăng nhập");
         }
         } catch (Exception e) {
         }

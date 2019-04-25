@@ -30,15 +30,15 @@ public class toanha extends javax.swing.JPanel {
     public toanha() {
         initComponents();
         model = (DefaultTableModel) tblToanha.getModel();
-        model2=(DefaultTableModel) tblPhong.getModel();
+        model2 = (DefaultTableModel) tblPhong.getModel();
         capnhatdulieuDATA();
         doDuLieuBang(listT);
     }
 
     void capnhatdulieuDATA() {
         listT = null;
-        listP=null;
-        listP=data.SelectAll("phong");
+        listP = null;
+        listP = data.SelectAll("phong");
         listT = data.SelectAll("toanha");
     }
 
@@ -79,29 +79,32 @@ public class toanha extends javax.swing.JPanel {
         txtTentoanha.setText(ten);
         txtDiachi.setText(diachi);
     }
-    ArrayList<Phong> xemPhong(){
-        ArrayList<Phong> p =new ArrayList<>();
+
+    ArrayList<Phong> xemPhong() {
+        ArrayList<Phong> p = new ArrayList<>();
         try {
-            int row=tblToanha.getSelectedRow();
-            String matn=tblToanha.getValueAt(row, 0).toString();
-            for(Phong check:listP){
-                String getmatn=check.getMatoanha()+"";
-                if(getmatn.equals(matn)){
+            int row = tblToanha.getSelectedRow();
+            String matn = tblToanha.getValueAt(row, 0).toString();
+            for (Phong check : listP) {
+                String getmatn = check.getMatoanha() + "";
+                if (getmatn.equals(matn)) {
                     p.add(check);
                 }
             }
-            
+
         } catch (Exception e) {
         }
         return p;
     }
-    void doDuLieuPhong(ArrayList<Phong> p){
+
+    void doDuLieuPhong(ArrayList<Phong> p) {
         model2.setRowCount(0);
-        for(Phong show:p){
-            model2.addRow(new Object[]{show.getTenphong(),show.getDientich(),show.getGiaphong()});
+        for (Phong show : p) {
+            model2.addRow(new Object[]{show.getTenphong(), show.getDientich(), show.getGiaphong()});
         }
-        
+
     }
+
     //THÊM SỬA XÓA
     void xoatrang() {
         //txtMatoanha.setText("");
@@ -153,18 +156,34 @@ public class toanha extends javax.swing.JPanel {
 
     }
 
-    void xoa() {
-        int is = JOptionPane.showConfirmDialog(this, "Bạn có chắc xóa tòa nhà: " + txtTentoanha.getText() + " không ?");
-        if (is == 0) {
-            String ma = txtMatoanha.getText();
-            String sql = "delete from toanha where matoanha='" + ma + "'";
-            try {
-                Statement stm = con.createStatement();
-                stm.executeQuery(sql);
-            } catch (Exception e) {
-                //JOptionPane.showMessageDialog(this, "LỖI xóa TÒA NHÀ: " + e);
-            }
+    void xoaphong() {
+        //int is = JOptionPane.showConfirmDialog(this, "Bạn có chắc xóa tòa nhà: " + txtTentoanha.getText() + " không ?Xóa tòa nhà dẫn đến thanh lí và xóa tất cả các phòng trong đó (bao gồm cả khách hàng)");
+
+        String ma = txtMatoanha.getText();
+        String xoatoanha = "delete from toanha where matoanha=" + ma + "";
+        String xoaphong = "delete from phong where matoanha=" + ma + "";
+        try {
+            Statement stm = con.createStatement();
+            stm.executeQuery(xoaphong);
+            //stm.executeQuery(xoatoanha);
+        } catch (Exception e) {
+           // JOptionPane.showMessageDialog(this, "LỖI xóa TÒA NHÀ: " + e);
         }
+
+    }
+
+    void xoatoanha() {
+        String ma = txtMatoanha.getText();
+        String xoatoanha = "delete from toanha where matoanha=" + ma + "";
+        //String xoaphong = "delete from phong where matoanha=" + ma + "";
+        try {
+            Statement stm = con.createStatement();
+            //stm.executeQuery(xoaphong);
+            stm.executeQuery(xoatoanha);
+        } catch (Exception e) {
+            //JOptionPane.showMessageDialog(this, "LỖI xóa TÒA NHÀ: " + e);
+        }
+
     }
 
     void sua() {
@@ -201,6 +220,10 @@ public class toanha extends javax.swing.JPanel {
         txtTentoanha = new javax.swing.JTextField();
         txtDiachi = new javax.swing.JTextField();
         TOOL = new javax.swing.JPanel();
+        normalTool = new javax.swing.JPanel();
+        jButton8 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         addTool = new javax.swing.JPanel();
         jButton10 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -209,10 +232,6 @@ public class toanha extends javax.swing.JPanel {
         HUYSUA = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
-        normalTool = new javax.swing.JPanel();
-        jButton8 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel51 = new javax.swing.JLabel();
         txtTimkiem = new javax.swing.JTextField();
@@ -229,6 +248,7 @@ public class toanha extends javax.swing.JPanel {
                 "Mã tòa nhà", "Tên tòa nhà", "Địa chỉ"
             }
         ));
+        tblToanha.setAutoscrolls(false);
         tblToanha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblToanhaMouseClicked(evt);
@@ -252,9 +272,62 @@ public class toanha extends javax.swing.JPanel {
         TOOL.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         TOOL.setLayout(new java.awt.CardLayout());
 
-        jButton10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/new1.png"))); // NOI18N
+        jButton8.setText("THÊM");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/update.png"))); // NOI18N
+        jButton2.setText("SỬA");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/delete1.png"))); // NOI18N
+        jButton5.setText("XÓA");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout normalToolLayout = new javax.swing.GroupLayout(normalTool);
+        normalTool.setLayout(normalToolLayout);
+        normalToolLayout.setHorizontalGroup(
+            normalToolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(normalToolLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(normalToolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(11, Short.MAX_VALUE))
+        );
+        normalToolLayout.setVerticalGroup(
+            normalToolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(normalToolLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        TOOL.add(normalTool, "card2");
+
+        jButton10.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/new1.png"))); // NOI18N
-        jButton10.setText("THÊMXONG");
+        jButton10.setText("THÊM XONG");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
@@ -357,59 +430,6 @@ public class toanha extends javax.swing.JPanel {
         );
 
         TOOL.add(editTool, "card4");
-
-        jButton8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/new1.png"))); // NOI18N
-        jButton8.setText("THÊM");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/update.png"))); // NOI18N
-        jButton2.setText("SỬA");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/delete1.png"))); // NOI18N
-        jButton5.setText("XÓA");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout normalToolLayout = new javax.swing.GroupLayout(normalTool);
-        normalTool.setLayout(normalToolLayout);
-        normalToolLayout.setHorizontalGroup(
-            normalToolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(normalToolLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(normalToolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(11, Short.MAX_VALUE))
-        );
-        normalToolLayout.setVerticalGroup(
-            normalToolLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(normalToolLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
-
-        TOOL.add(normalTool, "card2");
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -633,10 +653,15 @@ public class toanha extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        xoa();
+        int is = JOptionPane.showConfirmDialog(this, "Bạn có chắc xóa tòa nhà: " + txtTentoanha.getText() + " không ?Xóa tòa nhà dẫn đến thanh lí và xóa tất cả các phòng trong đó (bao gồm cả khách hàng)");
+        if(is==0){
+            xoaphong();
+        xoatoanha();
         xoatrang();
         capnhatdulieuDATA();
         doDuLieuBang(timToaNha(txtTimkiem.getText()));
+        }
+        
     }//GEN-LAST:event_jButton5ActionPerformed
 
 
